@@ -12,3 +12,4 @@
 #define BILL_FILE_DIR "D:\\file\\bill.ams"
 #define LOGIN_FILE_DIR "D:\\file\\login.ams"
 #define SETTLE_FILE_DIR "D:\\file\\settle.ams"
+#define RATE_FILE_DIR "D:\\file\\rate.ams"

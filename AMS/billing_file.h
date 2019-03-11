@@ -1,5 +1,7 @@
 #pragma once
 #include"global.h"
+#include "rate_file.h"
+
 typedef struct Billing {
 	char cCardName[18];	//卡号
 	time_t tStart;		//上机时间
@@ -28,18 +30,12 @@ typedef struct SettleInfo {
 	float fBalance;		//余额
 }SettleInfo;
 
-//将账单存入文件中
+//将账单存入中
 void bill_to_file(Billing ptr);
-//将上机信息写入链表
-void doLogin(LinkedLoginInfo* head,LoginInfo info);
 //将上机信息写入文件
 void LoginFile(LoginInfo info);
-//从文件中将上机信息找到
-
 //下机，将账单写入文件中
 void SettleFile(char* cNum, SettleInfo* sInfo);
-//获取上机时间
-time_t getLoginTime(LinkedLoginInfo* head, char *cCardName);
 //将下机信息和上机信息合并存入billing
 
 

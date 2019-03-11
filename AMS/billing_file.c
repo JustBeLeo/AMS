@@ -1,22 +1,10 @@
 #include"billing_file.h"
-void doLogin(LinkedLoginInfo* head,LoginInfo info) {
-	LinkedLoginInfo *node = (LinkedLoginInfo*)malloc(sizeof(LinkedLoginInfo));
-	LinkedLoginInfo *ptr;
-	node->info = info;
-	node->next = NULL;
-	ptr = head;
-	while (ptr->next!=NULL)
-	{
-		ptr = ptr->next;
-	}
-	ptr->next = node;
-}
 
 void LoginFile(LoginInfo info) {
 	FILE *fp;
 	errno_t err;
 	if ((err = fopen_s(&fp, LOGIN_FILE_DIR , "a+") != 0)) {
-		printf("添加时打开文件失败\n\n");
+		printf("LOGIN_FILE文件被占用\n\n");
 		return;
 	}
 	char str[100],	tStart[50];
@@ -28,17 +16,20 @@ void LoginFile(LoginInfo info) {
 void SettleFile(char* cNum,SettleInfo* sInfo)
 {
 	FILE *fp,*fp1;
-	int isLogin;
+	int isLogin;		//是否登录
+	Standard* std = (Standard*)malloc(sizeof(Standard));		//缓存收费标准
+	getStandard(std, 0);			//得到收费标准
+	int time;						//缓存上机时间(s)
 	LoginInfo lInfo;
 	char cInfo[50], tStart[50], temp1[25], temp2[25];
 	errno_t err;
 	if ((err = fopen_s(&fp, LOGIN_FILE_DIR , "r") != 0)) {
-		printf("文件被占用\n\n");
+		printf("LOGIN_FILE文件被占用\n\n");
 		return;
 	}
 
 	if ((err = fopen_s(&fp1, SETTLE_FILE_DIR, "a+") != 0)) {
-		printf("文件被占用\n\n");
+		printf("LOGIN_FILE文件被占用\n\n");
 		return;
 	}
 
@@ -51,9 +42,20 @@ void SettleFile(char* cNum,SettleInfo* sInfo)
 			sprintf_s(tStart, 50, "%s %s", temp1, temp2);
 			sInfo->tStart = stringToTime(tStart);
 			sInfo->tEnd = getTime();
-			sInfo->fAmount = (float)((int)sInfo->tEnd - (int)sInfo->tStart)*0.00027;
+			if (((int)sInfo->tEnd - (int)sInfo->tStart) < std->unit * 60) {
+				time = 1;
+			}
+			else {
+				time = ((int)sInfo->tEnd - (int)sInfo->tStart)/60;
+			}
+			sInfo->fAmount = time * std->charge;
 			sInfo->fBalance = lInfo.fBalance - sInfo->fAmount;
+			if (sInfo->fBalance < 0) {
+				printf("余额不足，请先充值");
+				return;
+			}
 			sprintf_s(cInfo, 50, "%s\t%lf\t\n", sInfo->cCardName, sInfo->fAmount);
+			printf("下机成功");
 			fputs(cInfo, fp1);
 		}
 	}
@@ -68,12 +70,12 @@ void SettleFile(char* cNum,SettleInfo* sInfo)
 
 	//fp指向储存文件，fp1指向缓存文件
 	if ((err = fopen_s(&fp, LOGIN_FILE_DIR, "r") != 0)) {
-		printf("文件被占用\n\n");
+		printf("LOGIN_FILE文件被占用\n\n");
 		return;
 	}
 
 	if ((err = fopen_s(&fp1, "temp1.txt", "w+") != 0)) {
-		printf("文件被占用\n\n");
+		printf("LOGIN_FILE文件被占用\n\n");
 		return;
 	}
 
@@ -95,7 +97,7 @@ void SettleFile(char* cNum,SettleInfo* sInfo)
 
 	//fp指向储存文件，fp1指向缓存文件
 	if ((err = fopen_s(&fp, LOGIN_FILE_DIR , "w") != 0)) {
-		printf("LOGIN_FILE_DIR 打开失败\n\n");
+		printf("LOGIN_FILE 文件被占用\n\n");
 		return;
 	}
 
@@ -113,18 +115,5 @@ void SettleFile(char* cNum,SettleInfo* sInfo)
 
 	fclose(fp);
 	fclose(fp1);
-}
- 
-
-time_t getLoginTime(LinkedLoginInfo* head,char *cCardName) {
-	LinkedLoginInfo *ptr = head;
-	while (ptr->next != NULL)
-	{
-		if (strcmp(ptr->info.cCardName, cCardName) == 0) {
-			return ptr->info.tStart;
-		}
-		ptr = ptr->next;
-	}
-	return (time_t)0;
 }
 

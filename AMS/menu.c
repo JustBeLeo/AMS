@@ -96,14 +96,22 @@ void showMenu1_1() {
 }
 void showMenu2() {
 	int num = 0;
-	while (num != 4) {
+	Standard* std = (Standard*)malloc(sizeof(Standard));
+	while (num != 3) {
 		printf("------------计费标准管理------------\n");
-		printf("1. 新增标准							\n");
-		printf("2. 查询标准							\n");
-		printf("3. 修改标准							\n");
-		printf("4. 退出								\n\n");
+		printf("1. 查询标准							\n");
+		printf("2. 修改标准							\n");
+		printf("3. 退出								\n\n");
 		scanf_s("%d", &num);
-
+		switch (num)
+		{
+		case 1:
+			getStandard(std, 1);
+			break;
+		case 2:
+			changeStandard();
+			break;
+		}
 	}
 }
 

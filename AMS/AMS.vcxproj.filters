@@ -110,5 +110,8 @@
     <ClInclude Include="billing_service.h">
       <Filter>头文件\业务逻辑层</Filter>
     </ClInclude>
+    <ClInclude Include="rate_service.h">
+      <Filter>头文件\业务逻辑层</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

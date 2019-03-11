@@ -13,7 +13,7 @@ void Login() {
 	Card card;
 	errno_t err;
 	if ((err = fopen_s(&fp, CARD_FILE_DIR, "a+") != 0)) {
-		printf("上机时打开文件失败\n\n");
+		printf("CARD_FILE文件被占用\n\n");
 		return;
 	}
 	fgets(cCard, 100, fp);
@@ -62,7 +62,7 @@ void Settle() {
 	scanf_s("%s", cPwd, sizeof(cPwd));
 
 	if ((err = fopen_s(&fp, CARD_FILE_DIR, "a+") != 0)) {
-		printf("添加时打开文件失败\n\n");
+		printf("CARD_FILE文件被占用\n\n");
 		return;
 	}
 
@@ -78,13 +78,15 @@ void Settle() {
 			}
 			else {
 				SettleFile(cNum,info);
+				if (info->fBalance < 0) {
+					return;
+				}
 				fclose(fp);
 				card.fBalance = info->fBalance;
 				card.fTotalUse += info->fAmount;
 				card.iStatus = 0;
 				card.tLast = info->tEnd;
 				updateCard(card);
-				printf("下机成功！\n\n");
 			}
 			if (fp != NULL)
 				fclose(fp);

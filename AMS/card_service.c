@@ -16,7 +16,7 @@ void addCard() {
 	FILE *fp;
 	errno_t err;
 	if ((err = fopen_s(&fp, CARD_FILE_DIR, "a+") != 0)) {
-		printf("添加时打开文件失败\n\n");
+		printf("CARD_FILE打开失败\n\n");
 		return;
 	}
 	if (fgets(temp, 100, fp) == NULL)
@@ -39,7 +39,7 @@ int searchCard(char *cNum,int isPrint) {
 	errno_t err;
 	int isFind = 0;
 	if ((err = fopen_s(&fp, CARD_FILE_DIR, "r") != 0)) {
-		printf("搜索时打开文件失败\n\n");
+		printf("CARD_FILE打开失败\n\n");
 		return 0;
 	}
 	//读掉第一行
@@ -80,7 +80,7 @@ void deleteCard(char *cNum) {
 	errno_t err;
 	int isDel = 0;
 	if ((err = fopen_s(&fp1, CARD_FILE_DIR, "r+") != 0)) {
-		printf("删除时打开失败\n\n");
+		printf("CARD_FILE打开失败\n\n");
 		return;
 	}
 	//读掉第一行
@@ -108,7 +108,7 @@ void deleteCard(char *cNum) {
 	}
 
 	if ((err = fopen_s(&fp2, "temp.txt", "w") != 0)) {
-		printf("打开失败\n\n");
+		printf("temp.txt打开失败\n\n");
 		return;
 	}
 	fputs("卡号\t\t密码\t\t状态\t开卡时间\t\t\t截止日期\t\t\t最后使用时间\t\t累计金额\t使用次数\t余额\t\t删除标识\n", fp2);
@@ -153,11 +153,11 @@ void updateCard(Card card) {
 	errno_t err;
 	Card card1;
 	if ((err = fopen_s(&fp1, CARD_FILE_DIR, "r") != 0)) {
-		printf("修改时打开文件失败\n\n");
+		printf("CARD_FILE文件被占用\n\n");
 		return;
 	}
 	if ((err = fopen_s(&fp2, "temp.txt", "w+") != 0)) {
-		printf("打开缓存文件失败\n\n");
+		printf("CARD_FILE文件被占用\n\n");
 		return;
 	}
 
@@ -176,11 +176,11 @@ void updateCard(Card card) {
 	fclose(fp2);
 
 	if ((err = fopen_s(&fp2, "temp.txt", "r") != 0)) {
-		printf("打开失败\n\n");
+		printf("temp.txt文件被占用\n\n");
 		return;
 	}
 	if ((err = fopen_s(&fp1, CARD_FILE_DIR, "w") != 0)) {
-		printf("修改时打开文件失败\n\n");
+		printf("CARD_FILE文件被占用\n\n");
 		return;
 	}
 

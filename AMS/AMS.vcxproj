@@ -139,6 +139,7 @@
     <ClInclude Include="linked_card_service.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="rate_file.h" />
+    <ClInclude Include="rate_service.h" />
     <ClInclude Include="record_file.h" />
     <ClInclude Include="service.h" />
     <ClInclude Include="tool.h" />
