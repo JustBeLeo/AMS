@@ -148,7 +148,7 @@ void deleteCard(char *cNum) {
 }
 
 void updateCard(Card card) {
-	char cCard[100],temp[100];
+	char cCard[100];
 	FILE *fp1,*fp2;
 	errno_t err;
 	Card card1;
@@ -167,8 +167,7 @@ void updateCard(Card card) {
 	while (fgets(cCard, 1000, fp1) != NULL) {
 		card1 = stringToCard(cCard);
 		if (strcmp(card.cNum, card1.cNum) == 0) {
-			card1.iStatus = 1;
-			cardToString(card1, cCard);
+			cardToString(card, cCard);
 		}
 		fputs(cCard, fp2);
 	}

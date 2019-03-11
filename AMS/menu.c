@@ -118,10 +118,10 @@ void showMenu3() {
 		switch (num)
 		{
 		case 1:
-			Login(logininfo_head);
+			Login();
 			break;
 		case 2:
-			Settle(logininfo_head);
+			Settle();
 			break;
 		case 3:
 			break;

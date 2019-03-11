@@ -1,9 +1,10 @@
 #pragma once
 #include <stdio.h>
-#include <time.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "tool.h"
+
 
 #define TRUE 1
 #define FALSE 0

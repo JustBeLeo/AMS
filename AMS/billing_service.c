@@ -1,6 +1,6 @@
 #include "billing_service.h"
 
-void Login(LinkedLoginInfo* head) {
+void Login() {
 	LoginInfo info;
 	char cNum[18], cPwd[8];
 
@@ -38,7 +38,7 @@ void Login(LinkedLoginInfo* head) {
 				card.iStatus = 1;
 				fclose(fp);
 				updateCard(card);
-				doLogin(head, info);
+				LoginFile(info);
 				printf("上机成功！\n\n");
 			}
 			if(fp!=NULL)
@@ -49,14 +49,13 @@ void Login(LinkedLoginInfo* head) {
 	}
 }
 
-void Settle(LinkedLoginInfo* head) {
+void Settle() {
 	char cNum[18], cPwd[8];
 	FILE *fp;
 	char cCard[100];
 	Card card;
 	errno_t err;
-	SettleInfo info;
-
+	SettleInfo* info = (SettleInfo*)malloc(sizeof(SettleInfo));
 	printf("请输入卡名:");
 	scanf_s("%s", cNum, sizeof(cNum));
 	printf("请输入密码:");
@@ -78,19 +77,12 @@ void Settle(LinkedLoginInfo* head) {
 				printf("该卡目前未在上机\n\n");
 			}
 			else {
-				strcpy_s(info.cCardName, 18, cNum);
-				info.tStart = getLoginTime(head, cNum);
-				info.tEnd = card.tEnd = getTime();
-				info.fAmount = (float)((int)info.tEnd - (int)info.tStart)*0.00000000027;
-				info.fBalance = card.fBalance - info.fAmount;
-				if (info.fBalance <= 0) {
-					printf("%f", info.fAmount);
-					printf("余额不足请充值!\n\n");
-					return;
-				}
+				SettleFile(cNum,info);
 				fclose(fp);
-				card.fBalance = info.fBalance;
-				card.fTotalUse += info.fAmount;
+				card.fBalance = info->fBalance;
+				card.fTotalUse += info->fAmount;
+				card.iStatus = 0;
+				card.tLast = info->tEnd;
 				updateCard(card);
 				printf("下机成功！\n\n");
 			}

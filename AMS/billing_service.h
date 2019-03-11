@@ -5,6 +5,6 @@
 #include "card_service.h"
 
 //上机
-void Login(LinkedLoginInfo* head);
+void Login();
 //下机
-void Settle(LinkedLoginInfo* head);
+void Settle();
