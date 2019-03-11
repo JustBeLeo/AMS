@@ -17,6 +17,12 @@ typedef struct LoginInfo {
 	float fBalance;		//余额
 }LoginInfo;
 
+typedef struct Use {
+	char cCardName[18];	//卡号
+	time_t tUse;	//何时消费
+	float fUse;		//消费情况
+}Use;
+
 typedef struct LinkedLoginInfo {
 	LoginInfo info;
 	struct LinkedLoginInfo* next;

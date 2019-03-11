@@ -3,7 +3,7 @@
 void Login() {
 	LoginInfo info;
 	char cNum[18], cPwd[8];
-
+	int tag = 0;		//标记是否找到了卡
 	printf("请输入卡名:");
 	scanf_s("%s", cNum, sizeof(cNum));
 	printf("请输入密码:");
@@ -20,6 +20,7 @@ void Login() {
 	while (fgets(cCard, 100, fp) != NULL) {
 		card = stringToCard(cCard);
 		if (strcmp(card.cNum, cNum) == 0) {
+			tag = 1;
 			if (strcmp(card.cPwd, cPwd) != 0) {
 				printf("密码错误\n\n");
 			}
@@ -45,7 +46,9 @@ void Login() {
 				fclose(fp);
 			break;
 		}
-
+	}
+	if (tag == 0) {
+		printf("该卡不存在\n\n");
 	}
 }
 
@@ -94,4 +97,56 @@ void Settle() {
 		}
 
 	}
+}
+
+void QueryConsume()
+{
+	char cNum[18];
+	FILE *fp;
+	char temp[100],tUse1[20],tUse2[20];
+	errno_t err;
+	Use mUse;
+	int tag = 0;		//标记位
+	printf("请输入卡名:");
+	scanf_s("%s", cNum, sizeof(cNum));
+	if ((err = fopen_s(&fp, SETTLE_FILE_DIR, "r") != 0)) {
+		printf("SETTLE_FILE文件被占用\n\n");
+		return;
+	}
+	while ((fgets(temp, 100, fp)) != NULL) {
+		sscanf_s(temp, "%s %s %s %f", mUse.cCardName,sizeof(mUse.cCardName),tUse1,sizeof(tUse1),tUse2,sizeof(tUse2), &mUse.fUse);
+		if (strcmp(mUse.cCardName, cNum) == 0) {
+			printf("%s在%s消费了:%.3f元\n", mUse.cCardName, tUse1, mUse.fUse);
+			tag = 1;
+		}
+	}
+	if (tag==0) {
+		printf("未找到记录\n\n");
+	}
+	fclose(fp);
+}
+
+void TotalUse()
+{
+	char date[18];
+	FILE *fp;
+	float total = 0;
+	char temp[100], tUse1[20], tUse2[20];
+	errno_t err;
+	Use mUse;
+	int tag = 0;		//标记位
+	printf("请输入日期(xxxx-xx-xx):");
+	scanf_s("%s", date, sizeof(date));
+	if ((err = fopen_s(&fp, SETTLE_FILE_DIR, "r") != 0)) {
+		printf("SETTLE_FILE文件被占用\n\n");
+		return;
+	}
+	while ((fgets(temp, 100, fp)) != NULL) {
+		sscanf_s(temp, "%s %s %s %f", mUse.cCardName, sizeof(mUse.cCardName), tUse1, sizeof(tUse1), tUse2, sizeof(tUse2), &mUse.fUse);
+		if (strcmp(tUse1, date) == 0) {
+			total += mUse.fUse;
+		}
+	}
+	printf("%s的总营业额为%.3f\n\n",date,total);
+	fclose(fp);
 }

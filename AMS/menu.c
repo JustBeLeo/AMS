@@ -145,6 +145,17 @@ void showMenu4() {
 		printf("2. 退费								\n");
 		printf("3. 退出								\n\n");
 		scanf_s("%d", &num);
+		switch (num)
+		{
+		case 1:
+			recharge();
+			break;
+		case 2:
+			refund();
+			break;
+		case 3:
+			break;
+		}
 
 	}
 }
@@ -157,6 +168,14 @@ void showMenu5() {
 		printf("2. 统计总营业额						\n");
 		printf("3. 退出								\n\n");
 		scanf_s("%d", &num);
-
+		switch (num)
+		{
+		case 1:
+			QueryConsume();
+			break;
+		case 2:
+			TotalUse();
+			break;
+		}
 	}
 }

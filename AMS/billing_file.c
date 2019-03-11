@@ -21,7 +21,7 @@ void SettleFile(char* cNum,SettleInfo* sInfo)
 	getStandard(std, 0);			//得到收费标准
 	int time;						//缓存上机时间(s)
 	LoginInfo lInfo;
-	char cInfo[50], tStart[50], temp1[25], temp2[25];
+	char cInfo[50], tStart[50],tEnd[50], temp1[25], temp2[25];
 	errno_t err;
 	if ((err = fopen_s(&fp, LOGIN_FILE_DIR , "r") != 0)) {
 		printf("LOGIN_FILE文件被占用\n\n");
@@ -42,6 +42,7 @@ void SettleFile(char* cNum,SettleInfo* sInfo)
 			sprintf_s(tStart, 50, "%s %s", temp1, temp2);
 			sInfo->tStart = stringToTime(tStart);
 			sInfo->tEnd = getTime();
+			timeToString(sInfo->tEnd, tEnd);
 			if (((int)sInfo->tEnd - (int)sInfo->tStart) < std->unit * 60) {
 				time = 1;
 			}
@@ -51,11 +52,11 @@ void SettleFile(char* cNum,SettleInfo* sInfo)
 			sInfo->fAmount = time * std->charge;
 			sInfo->fBalance = lInfo.fBalance - sInfo->fAmount;
 			if (sInfo->fBalance < 0) {
-				printf("余额不足，请先充值");
+				printf("余额不足，请先充值\n\n");
 				return;
 			}
-			sprintf_s(cInfo, 50, "%s\t%lf\t\n", sInfo->cCardName, sInfo->fAmount);
-			printf("下机成功");
+			sprintf_s(cInfo, 50, "%s\t%s\t%lf\t\n", sInfo->cCardName, tEnd,sInfo->fAmount);
+			printf("下机成功\n\n");
 			fputs(cInfo, fp1);
 		}
 	}

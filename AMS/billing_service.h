@@ -8,3 +8,7 @@
 void Login();
 //下机
 void Settle();
+//查询消费情况
+void QueryConsume();
+//统计消费总额
+void TotalUse();
