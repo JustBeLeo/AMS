@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="源文件\数据存储层">
+      <UniqueIdentifier>{2ba09768-0903-4ecd-8442-4217b3cce591}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\业务逻辑层">
+      <UniqueIdentifier>{16f0818a-689e-494c-acea-41af943a85fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\表示层">
+      <UniqueIdentifier>{33cae14c-0768-4093-bc20-3d70a40704cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\工具项">
+      <UniqueIdentifier>{df809680-2b75-4a05-89d0-509d536d3024}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\数据储存层">
+      <UniqueIdentifier>{0ab19c6f-1810-4c6b-968f-a5d6017f3a12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\表示层">
+      <UniqueIdentifier>{6115fa80-f12a-44dd-a1bf-de4b1b7188b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\业务逻辑层">
+      <UniqueIdentifier>{e684c0bc-82f3-4abd-bb58-ce82f0a1e3e2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="billing_file.c">
+      <Filter>源文件\数据存储层</Filter>
+    </ClCompile>
+    <ClCompile Include="card_file.c">
+      <Filter>源文件\数据存储层</Filter>
+    </ClCompile>
+    <ClCompile Include="rate_file.c">
+      <Filter>源文件\数据存储层</Filter>
+    </ClCompile>
+    <ClCompile Include="record_file.c">
+      <Filter>源文件\数据存储层</Filter>
+    </ClCompile>
+    <ClCompile Include="billing_service.c">
+      <Filter>源文件\业务逻辑层</Filter>
+    </ClCompile>
+    <ClCompile Include="card_service.c">
+      <Filter>源文件\业务逻辑层</Filter>
+    </ClCompile>
+    <ClCompile Include="rate_service.c">
+      <Filter>源文件\业务逻辑层</Filter>
+    </ClCompile>
+    <ClCompile Include="record_service.c">
+      <Filter>源文件\业务逻辑层</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.c">
+      <Filter>源文件\表示层</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>源文件\表示层</Filter>
+    </ClCompile>
+    <ClCompile Include="tool.c">
+      <Filter>源文件\工具项</Filter>
+    </ClCompile>
+    <ClCompile Include="service.c">
+      <Filter>源文件\业务逻辑层</Filter>
+    </ClCompile>
+    <ClCompile Include="linked_card_service.c">
+      <Filter>源文件\业务逻辑层</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="global.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="card_file.h">
+      <Filter>头文件\数据储存层</Filter>
+    </ClInclude>
+    <ClInclude Include="billing_file.h">
+      <Filter>头文件\数据储存层</Filter>
+    </ClInclude>
+    <ClInclude Include="rate_file.h">
+      <Filter>头文件\数据储存层</Filter>
+    </ClInclude>
+    <ClInclude Include="record_file.h">
+      <Filter>头文件\数据储存层</Filter>
+    </ClInclude>
+    <ClInclude Include="tool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="service.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>头文件\表示层</Filter>
+    </ClInclude>
+    <ClInclude Include="card_service.h">
+      <Filter>头文件\业务逻辑层</Filter>
+    </ClInclude>
+    <ClInclude Include="linked_card_service.h">
+      <Filter>头文件\业务逻辑层</Filter>
+    </ClInclude>
+    <ClInclude Include="billing_service.h">
+      <Filter>头文件\业务逻辑层</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
